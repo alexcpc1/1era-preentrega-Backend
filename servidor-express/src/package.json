@@ -1,11 +1,11 @@
 {
-  "name": "servidor-express",
+  "name": "3er-desafio-corregido",
   "version": "1.0.0",
   "description": "",
   "main": "ProductManager.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "start": "nodemon servidor-express/src/app.js"
   },
   "keywords": [],
   "author": "",
