@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { __dirname } from "../utils.js";
 
-class cartManager {
+class CartManager {
     constructor(pathName){
         this.path=path.join(__dirname,`/files/${pathName}`);
     }
@@ -105,4 +105,4 @@ class cartManager {
     };
 }
 
-export {cartManager}
+export {CartManager}

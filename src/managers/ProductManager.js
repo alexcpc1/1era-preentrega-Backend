@@ -20,7 +20,7 @@ class ProductManager {
         return newId;
     }
 
-    async addProduct (title, descripcion, price, thumbnail, code, stock){
+    async addProduct ({title, descripcion, price, thumbnail, code, stock}){
         
         if(!title || !descripcion || !price || !thumbnail|| !code || !stock){
          return console.log("Todos los campos deben ser Obligatorios");
@@ -41,7 +41,7 @@ class ProductManager {
                 product.stock = stock;             
                 product.id = productId;
                 products.push(product);
-                //Actualiza el archivo de los productos          
+                //se actualiza el archivo de los productos          
                 await fs.promises.writeFile(this.path, JSON.stringify(products, null, 2));
                 return product;
                } else {
