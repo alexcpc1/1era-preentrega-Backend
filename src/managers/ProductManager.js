@@ -1,9 +1,10 @@
-
 import fs from "fs";
+import path from "path";
+import { __dirname } from "../utils";
 
 class ProductManager {
     constructor(pathName){
-        this.path = pathName;
+        this.path=path.join(__dirname,`/files/${pathName}`);
     }
     fileExists(){
         return fs.existsSync(this.path);
@@ -55,8 +56,8 @@ class ProductManager {
                 return product;
             };
         } catch(error){
-            // console.log(error.mesage);
-            throw new error(error.mesage);
+            // console.log(error.message);
+            throw new error(error.message);
         }
     };
 // obtener productos
@@ -71,8 +72,8 @@ class ProductManager {
                 throw new Error("El archivo no existe");
             } 
         } catch(error){
-            // console.log(error.mesage);
-            throw new error(error.mesage);
+            // console.log(error.message);
+            throw new error(error.message);
         }
     };
 
