@@ -1,4 +1,4 @@
-import { Express } from "express";
+import express from "express";
 import { productRouter } from "./routes/products.routes.js";
 import { cartRouter } from "./routes/carts.routes.js";
 
@@ -13,8 +13,3 @@ app.use(express.urlencoded({ extended: true }));
 //routes
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
-app.use("/api/products", productRouter);
-
-const productManager = new ProductManager("./src/file/products.json");
-// console.log(productManager);
-
