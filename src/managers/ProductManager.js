@@ -20,9 +20,9 @@ class ProductManager {
         return newId;
     }
 
-    async addProduct ({title, descripcion, price, thumbnail, code, stock}){
+    async addProduct ({title, description, code, price, status, stock, category}){
         
-        if(!title || !descripcion || !price || !thumbnail|| !code || !stock){
+        if(!title || !description || !code || !price || !status || !stock || !category){
          return console.log("Todos los campos deben ser Obligatorios");
         }
         try{
@@ -66,8 +66,7 @@ class ProductManager {
             if(this.fileExists()){
                 const content = await fs.promises.readFile(this.path, "utf-8");
                 const products =JSON.parse(content);
-                const arrayProducts = Object.values(products);
-                return arrayProducts;
+                return products;
             } else {
                 throw new Error("El archivo no existe");
             } 
