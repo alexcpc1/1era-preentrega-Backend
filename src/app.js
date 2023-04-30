@@ -12,4 +12,5 @@ app.use(express.urlencoded({ extended: true }));
 
 //routes
 app.use("/api/products", productRouter);
+
 app.use("/api/carts", cartRouter);

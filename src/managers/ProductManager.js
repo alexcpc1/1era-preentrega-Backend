@@ -20,7 +20,7 @@ class ProductManager {
         return newId;
     }
 
-    async addProduct ({title, description, code, price, status, stock, category}){
+    async addProduct ({title, description, code, price, thumbnail, status, stock, category}){
         
         if(!title || !description || !code || !price || !status || !stock || !category){
          return console.log("Todos los campos deben ser Obligatorios");
@@ -34,11 +34,13 @@ class ProductManager {
                 const productId = this.generateId(products);
                 var product = new Object();   
                 product.title = title;
-                product.descripcion = descripcion;
+                product.description = description;
                 product.price = price;
                 product.thumbnail = thumbnail;
                 product.code = code;
-                product.stock = stock;             
+                product.stock = stock;     
+                product.status =status;  
+                product.category = category    
                 product.id = productId;
                 products.push(product);
                 //se actualiza el archivo de los productos          
@@ -62,39 +64,39 @@ class ProductManager {
     };
 // obtener productos
     async getProducts(){
-        try{
+        try {
             if(this.fileExists()){
-                const content = await fs.promises.readFile(this.path, "utf-8");
-                const products =JSON.parse(content);
+                const content = await fs.promises.readFile(this.path,"utf-8");
+                const products = JSON.parse(content);
                 return products;
             } else {
                 throw new Error("El archivo no existe");
-            } 
-        } catch(error){
-            // console.log(error.message);
-            throw new error(error.message);
+            }
+        } catch (error) {
+            throw new Error(error.message);
         }
     };
 
     async getProductById(id){
-        try{
+        try {
             if(this.fileExists()){
-                const content = await fs.promises.readFile(this.path, "utf-8");
+                const content = await fs.promises.readFile(this.path,"utf-8");
                 const products = JSON.parse(content);
-                const product = products.find(item=>item.id === id);
+                const product = products.find(item=>item.id === parseInt(id));
                 if(product){
                     return product;
                 } else {
-                    throw new Error (`El producto con el id ${id} no existe`);
+                    return null;
                 }
-             } else {
+            } else {
                 throw new Error("El archivo no existe");
-             }
-        } catch (error){
+            }
+        } catch (error) {
             // console.log(error.message);
             throw new Error(error.message);
         }
     };
+
     async updateProduct(id, product){
         try{
             if(this.fileExists()){
@@ -171,3 +173,126 @@ export {ProductManager}
 //     }
 // }
 // functionPrincipal();
+
+
+// {
+//     "title": "Cereal",
+//     "description": "Cereal Infantil Nestum Frutilla - 250GR",
+//     "price": 6000,
+//     "thumbnail": "https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/20386774-qf9cW0sV-medium.png",
+//     "code": "1012",
+//     "stock": 100,
+//     "status": true,  
+//     "category": "Abarrotes",
+
+//   },
+//   {
+//     "title": "Chorizo",
+//     "description": "Chorizo Parrillero - 20 Und",
+//     "price": 4000,
+//     "thumbnail": "https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/20050239-Oy6zFS-p-medium.jpg",
+//     "code": "1016",
+//     "stock": 30,
+//     "status": true,  
+//     "category": "Fiambreria",
+//     "id": 3
+//   },
+//   {
+//     "title": "Risotto",
+//     "description": "Risotto de Champiñones 40Gr",
+//     "price": 3000,
+//     "thumbnail": "https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/20548165-LhlJB88C-medium.jpg",
+//     "code": "1010",
+//     "stock": 40,
+//     "status": true,  
+//     "category": "Abarrotes",
+//     "id": 5
+//   },
+//   {
+//     "title": "Pasta",
+//     "description": "pasta larga 200Gr",
+//     "price": 1000,
+//     "thumbnail": "https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/20548165-LhlJB88C-medium.jpg",
+//     "code": "1033",
+//     "stock": 10,
+//     "status": true,  
+//     "category": "Abarrotes",
+//     "id": 6
+//   },
+//   {
+//     "title": "Leche",
+//     "description": "Risotto de Champiñones 40Gr",
+//     "price": 3000,
+//     "thumbnail": "https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/20548165-LhlJB88C-medium.jpg",
+//     "code": "1014",
+//     "stock": 20,
+//     "status": true,  
+//     "category": "Lacteos",
+//     "id": 7
+//   },
+//   {
+//     "title": "Arroz",
+//     "description": "Arroz grano entero 500Gr",
+//     "price": 500,
+//     "thumbnail": "https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/20548165-LhlJB88C-medium.jpg",
+//     "code": "1018",
+//     "stock": 2000,
+//     "status": true,  
+//     "category": "Abarrotes",
+//     "id": 9
+//   },
+//   {
+//     "title": "Pizza",
+//     "description": "Pizza de peperoni mediana",
+//     "price": 5500,
+//     "thumbnail": "https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/20211526-38YL_0zf-medium.jpg",
+//     "code": "3333",
+//     "stock": 8800,
+//     "status": true,  
+//     "category": "Congelado",
+//     "id": 10
+//   },
+//   {
+//     "title": "Vianesa",
+//     "description": "Vianesa de pollo - 20 Und",
+//     "price": 9999,
+//     "thumbnail": "https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/20050239-Oy6zFS-p-medium.jpg",
+//     "code": "777",
+//     "stock": 30,
+//     "status": true,  
+//     "category": "Fiambreria",
+//     "id": 11
+//   },
+//   {
+//     "title": "Yogurt",
+//     "description": "Yogurt de durazno 100Gr",
+//     "price": 9999,
+//     "thumbnail": "https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/20050239-Oy6zFS-p-medium.jpg",
+//     "code": "44444",
+//     "stock": 888,
+//     "status": true,  
+//     "category": "Lacteos",
+//     "id": 12
+//   },
+//   {
+//     "title": "pizarra",
+//     "description": "Pizarra blanca",
+//     "price": 92000,
+//     "thumbnail": "https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/20050239-Oy6zFS-p-medium.jpg",
+//     "code": "44448",
+//     "stock": 888,
+//     "status": true,  
+//     "category": "Escolar",
+//     "id": 13
+//   },
+//   {
+//     "title": "pintura",
+//     "description": "Pintura blanca",
+//     "price": 7888,
+//     "thumbnail": "https://7483c243aa9da28f329c-903e05bc00667eb97d832a11f670edad.ssl.cf1.rackcdn.com/20050239-Oy6zFS-p-medium.jpg",
+//     "code": "6633",
+//     "stock": 1,
+//     "status": true,  
+//     "category": "Hogar",
+//     "id": 14,
+// {
